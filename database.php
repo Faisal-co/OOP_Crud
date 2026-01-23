@@ -5,7 +5,7 @@ class Database{
     private $db_pass = "";
     private $db_name = "testing";
     private $mysqli = "";
-    private $result = array();
+    private $result = array();//Whenever and wherever Sql queries will be executed in our program, result will be stored in this array $result variable.  
     private $conn = false;
     public function __construct(){
         if(!$this->conn){ // Only to store Error.
@@ -20,7 +20,7 @@ class Database{
         }
         }
     }
-    public function insert(){
+    public function insert($table, $params = array()){
 
     }
     public function update(){
