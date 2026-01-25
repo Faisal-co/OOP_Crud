@@ -47,9 +47,7 @@ class Database{
 
 
     }
-    public function select(){
 
-    }
     private function tableExists($table){
             $sql = "SHOW TABLES FROM $this->db_name LIKE '$table'";
             $tableInDb = $this->mysqli->query($sql);
@@ -59,7 +57,7 @@ class Database{
             }
             }
             else{
-                array_push($this->result,$table."does not exist in database");
+                array_push($this->result,$table."does not found in database");
                 return false;
             }
 
