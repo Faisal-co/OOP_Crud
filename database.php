@@ -22,7 +22,7 @@ class Database{
     }
     public function insert($table, $params = array()){
             if($this->tableExists($table)){
-                $table_columns = implode(' , ', array_keys($params));
+                $table_columns = implode(' , ', array_keys($params));// Convert array() into string.
                 $table_values = implode("' , '", $params);
                 $sql = "INSERT INTO $table ($table_columns) VALUES ('$table_values')";
                 if($this->mysqli->query($sql)){
@@ -40,8 +40,26 @@ class Database{
             }
 
     }
-    public function update(){
-
+    public function update($table, $params = array(), $where = null){
+        if($this->tableExists($table)){
+            $args = array();
+            foreach($params as $key => $value){
+                $args[] = "$key = '$value'"; //agar kisi array men aik sath key & value ko store krna at the same time.
+            }
+            $sql = "UPDATE $table SET " . implode(",", $args);
+            if($where != null){
+                $sql .= " WHERE $where"; 
+            }
+            if($this->mysqli->query($sql)){
+                array_push($this->result, $this->mysqli->affected_rows);
+            }
+            else{
+                array_push($this->result, $this->mysqli->error);
+            }
+            }
+        else{
+            return false;
+        }
     }
     public function delete(){
 
