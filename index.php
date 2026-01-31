@@ -16,8 +16,11 @@ echo "Rows Delete";
 print_r($obj->getResult()); // Showing All messages of $result Variable.*/
 $obj = new Database();
 //  $obj->sql('SELECT * FROM users');
- $obj->sql('SELECT * FROM users WHERE id = "29"');
+ /* $obj->sql('SELECT * FROM users WHERE id = "29"');
 echo "Showing all results";
+print_r($obj->getResult()); // Showing All messages of $result Variable. */
+$obj->select('users','*',null,null,null,3);
+echo "Showing Specific results";
 print_r($obj->getResult()); // Showing All messages of $result Variable.
 
 ?>
