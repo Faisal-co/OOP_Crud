@@ -4,7 +4,7 @@ class Database{
     private $db_user = "root";
     private $db_pass = "";
     private $db_name = "crud_oop";
-    private $mysqli = "";
+    private $mysqli = ""; // it is user defined mysqli variable object.
     private $result = array();//Whenever and wherever Sql queries will be executed in our program, result will be stored in this array $result variable.  
     private $conn = false;
     public function __construct(){
@@ -77,6 +77,25 @@ class Database{
         }
         else{
             return false;
+        }
+    }
+    public function select($table,$rows ="*", $join = null,$where = null, $order = null, $limit = null){
+        if($this->tableExists($table)){
+
+        }
+        else{
+            return false;
+        }
+
+    }
+    public function sql($sql){
+      $query = $this->mysqli->query($sql);
+      if($query){
+        $this->result = $query->fetch_all(MYSQLI_ASSOC);
+        return true;
+      }  
+        else{
+            array_push($this->result, $this->mysqli->error);
         }
     }
 

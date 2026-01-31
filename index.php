@@ -10,9 +10,14 @@ $obj->update('users',['name'=>'Rana Siraj Aslam','user_name'=>'EEeeeA','email'=>
 // $obj->update('users',['name'=>'Rana'],'name = "Aslam"');
 echo "Rowsupdate";
 print_r($obj->getResult());*/
-$obj = new Database();
+/*$obj = new Database();
  $obj->delete('users','id = "1"');
 echo "Rows Delete";
+print_r($obj->getResult()); // Showing All messages of $result Variable.*/
+$obj = new Database();
+//  $obj->sql('SELECT * FROM users');
+ $obj->sql('SELECT * FROM users WHERE id = "29"');
+echo "Showing all results";
 print_r($obj->getResult()); // Showing All messages of $result Variable.
 
 ?>
