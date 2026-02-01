@@ -128,7 +128,23 @@ class Database{
                 $query = $this->mysqli->query($sql);
                 $total_record = $query->fetch_array();// Give Number of Rows OR Records.
                 $total_record = $total_record[0];
-                echo $total_record;
+                $total_page = ceil($total_record / $limit);
+                $url = Basename($_SERVER['PHP_SELF']);  
+                
+                if(isset($_GET['page'])){// iF user Clicks on any page number.
+                    $page = $_GET['page'];
+                }else{
+                    $page = 1;
+                }
+                $output = "<ul class = 'pagination'>";
+                    if($total_record > $limit){ // TO PRINT ALL PAGE NUMBERS.
+                        for($i = 1; $i <= $total_page; $i++){
+                            $output .= "<li><a href = '$url?page=$i'></a></li>";
+                        }
+                    }
+                $output .= "</ul>";
+            }
+
             }
             else{
                 return false;
