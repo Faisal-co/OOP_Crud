@@ -92,8 +92,15 @@ class Database{
                 $sql .= " ORDER BY $order";
             }
             if($limit != null){
-                $sql .= " LIMIT 0, $limit ";
+                if(isset($_GET['page'])){// iF user Clicks on any page number.
+                    $page = $_GET['page'];
+                }else{
+                    $page = 1;
+                }
+                $start = ($page - 1) * $limit; // start means offset how many records to skip.
+                $sql .= " LIMIT $start, $limit ";
             }
+            echo $sql; // JUST ECHOING
             $query = $this->mysqli->query($sql);
             if($query){
                 $this->result = $query->fetch_all(MYSQLI_ASSOC);
@@ -108,6 +115,31 @@ class Database{
                 }
 
     }
+    public function pagination($table, $join = null, $where = null, $limit = null){
+        if($this->tableExists($table)){
+            if($limit != null){
+                $sql = "SELECT COUNT(*) FROM $table";  
+                if($join != null){
+                    $sql .= " JOIN $join";
+                }
+                if($where != null){
+                    $sql .= " WHERE $where";
+                }
+                $query = $this->mysqli->query($sql);
+                $total_record = $query->fetch_array();// Give Number of Rows OR Records.
+                $total_record = $total_record[0];
+                echo $total_record;
+            }
+            else{
+                return false;
+            }
+
+        }else{
+            return false;
+        }
+
+    }
+
     public function sql($sql){
       $query = $this->mysqli->query($sql);
       if($query){
