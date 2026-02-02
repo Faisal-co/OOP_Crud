@@ -19,10 +19,13 @@ $obj = new Database();
  /* $obj->sql('SELECT * FROM users WHERE id = "29"');
 echo "Showing all results";
 print_r($obj->getResult()); // Showing All messages of $result Variable. */
-// $obj->select('users','*',null,null,null,2);
-// echo " <br> Showing Specific results";  
-// print_r($obj->getResult()); // Showing All messages of $result Variable.
-$obj->pagination('users',null,null,2);
+$col_name = "users.name,city.cname";
+$join = "city ON users.city = city.cid";
+$limit = 3;
+$obj->select('users',$col_name,$join,null,null,$limit);
+echo " <br> Showing Specific results";  
+print_r($obj->getResult()); // Showing All messages of $result Variable.
+echo $obj->pagination('users',$join,null,$limit);
 
 
 

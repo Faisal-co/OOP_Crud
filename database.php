@@ -137,24 +137,43 @@ class Database{
                     $page = 1;
                 }
                 $output = "<ul class = 'pagination'>";
+                if($page > 1){
+                    $prev = $page - 1;
+                    $output .= "<li><a href = '$url?page=$prev'>Prev</a></li>";
+
+                }
                     if($total_record > $limit){ // TO PRINT ALL PAGE NUMBERS.
                         for($i = 1; $i <= $total_page; $i++){
-                            $output .= "<li><a href = '$url?page=$i'></a></li>";
+                            if($i == $page){
+                                $cls = "active";
+                            }
+                            else{
+                                $cls = "";
+                            }
+                            $output .= "<li><a $cls href = '$url?page=$i'>$i</a></li>"; //anchor tag <a> active class ??
                         }
                     }
+                    if($total_page > $page){
+                    $next = $page + 1;
+                    $output .= "<li><a href = '$url?page=$next'>Next</a></li>";
+
+                }
                 $output .= "</ul>";
+                return $output;
+                
             }
 
-            }
+
             else{
                 return false;
             }
-
-        }else{
-            return false;
         }
-
+         else{
+                return false;
+            }
     }
+    
+    
 
     public function sql($sql){
       $query = $this->mysqli->query($sql);
